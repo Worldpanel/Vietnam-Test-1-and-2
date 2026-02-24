@@ -80,7 +80,72 @@
         formContainer.style.display = 'none';
         timeUpElement.style.display = 'block';
       }
-    }, 1000);
-  </script>
+    }, 1000); 
+
+/* ============================
+   ANTI-CHEAT ADD‑ONS (Option 1 + Option 2)
+   ============================ */
+
+/* --- Block Copy / Paste / Cut / Right‑Click / Text Selection --- */
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("paste", e => e.preventDefault());
+document.addEventListener("cut", e => e.preventDefault());
+document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("selectstart", e => e.preventDefault());
+
+/* --- Detect Tab Switching (Count Only) --- */
+let tabSwitchCount = 0;
+
+document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+        tabSwitchCount++;
+        alert(`⚠️ You left the test tab! (Total: ${tabSwitchCount} time(s))`);
+    }
+});
+
+
+/* ============================
+   FULLSCREEN ENFORCEMENT
+   ============================ */
+
+// Go fullscreen when page loads
+window.onload = function () {
+    requestFullscreenMode();
+};
+
+// Request fullscreen mode
+function requestFullscreenMode() {
+    const docEl = document.documentElement;
+
+    if (docEl.requestFullscreen) docEl.requestFullscreen();
+    else if (docEl.mozRequestFullScreen) docEl.mozRequestFullScreen();
+    else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen();
+    else if (docEl.msRequestFullscreen) docEl.msRequestFullscreen();
+
+    alert("📌 The test will run in full‑screen mode.\nLeaving full‑screen will trigger a warning.");
+}
+
+// Detect exiting fullscreen
+document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement) {
+        alert("⚠️ You exited full‑screen mode! Please return immediately.");
+    }
+});
+document.addEventListener("webkitfullscreenchange", () => {
+    if (!document.webkitFullscreenElement) {
+        alert("⚠️ You exited full‑screen mode! Please return immediately.");
+    }
+});
+document.addEventListener("mozfullscreenchange", () => {
+    if (!document.mozFullScreenElement) {
+        alert("⚠️ You exited full‑screen mode! Please return immediately.");
+    }
+});
+document.addEventListener("msfullscreenchange", () => {
+    if (!document.msFullscreenElement) {
+        alert("⚠️ You exited full‑screen mode! Please return immediately.");
+    }
+});
+</script>
 </body>
 </html>
